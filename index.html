@@ -1,11 +1,79 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Customer Portal</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suriyawan Saffari – Customer Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fff;
+      color: #212529;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      width: 100%;
+      text-align: center;
+      background-color: #ff9900;
+      color: white;
+      padding: 15px 0;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 0 0 10px 10px;
+    }
+    .card {
+      background: #f1f1f1;
+      padding: 25px;
+      border-radius: 12px;
+      margin-top: 20px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    }
+    .card h2 {
+      color: #333;
+    }
+    .status {
+      font-size: 16px;
+      color: green;
+      margin-top: 10px;
+    }
+    .info {
+      font-size: 14px;
+      color: #666;
+      margin-top: 15px;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
-  <h1 id="welcome-msg">Welcome to the Customer Portal</h1>
-  <div id="order-status"></div>  <script src="script.js"></script></body>
+
+  <header>
+    🛍️ Suriyawan Saffari – Customer Portal
+  </header>
+
+  <div class="card">
+    <h2 id="welcome-msg">Connecting to Backend...</h2>
+    <p>Explore products, place orders, and track delivery in real time.</p>
+    <p class="status" id="status-msg">Waiting for response...</p>
+    <p class="info">
+      Earn ₹10 with every referral!<br>
+      Use your referral code after 1st order delivery.
+    </p>
+  </div>
+
+  <footer>
+    © 2025 Suriyawan Saffari | Powered by AI + GPS
+  </footer>
+
+  <script src="script.js"></script>
+</body>
 </html>
