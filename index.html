@@ -5,18 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Suriyawan Saffari – Customer Portal</title>
 
-  <!-- External Stylesheet -->
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Optional Google Fonts (Better UI) -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
 
   <style>
     body {
       margin: 0;
       font-family: 'Roboto', 'Segoe UI', sans-serif;
-      background: #fdfdfd;
-      color: #212529;
+      background: #fefefe;
+      color: #212121;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -38,77 +36,73 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      gap: 15px;
-      padding: 10px;
       flex-wrap: wrap;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      gap: 12px;
+      padding: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     nav button {
       background-color: #ff9800;
       color: white;
-      padding: 10px 15px;
+      padding: 10px 14px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      transition: 0.2s;
+      transition: 0.3s ease;
     }
 
     nav button:hover {
-      background-color: #e67e22;
+      background-color: #f57c00;
     }
 
     .container {
-      max-width: 800px;
       width: 100%;
+      max-width: 850px;
       padding: 20px;
     }
 
     .card {
       background: #fff8f0;
-      padding: 25px;
+      padding: 24px;
       border-radius: 12px;
       margin-top: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.07);
-    }
-
-    .card h2 {
-      color: #333;
+      box-shadow: 0 0 8px rgba(0,0,0,0.06);
     }
 
     .status {
-      font-size: 16px;
+      font-size: 15px;
       color: green;
-      margin-top: 10px;
+      margin-top: 12px;
     }
 
     .info {
       font-size: 14px;
       color: #555;
-      margin-top: 15px;
+      margin-top: 10px;
     }
 
-    #chatbox {
+    #helpdesk {
       background: #fff;
       border: 1px solid #ccc;
-      border-radius: 10px;
+      border-radius: 12px;
       margin-top: 30px;
       padding: 20px;
     }
 
-    #chatbox h3 {
-      margin-bottom: 10px;
+    #helpdesk h3 {
+      margin-bottom: 12px;
     }
 
-    #chatbox input {
-      width: 80%;
+    #helpdesk input {
+      width: 70%;
       padding: 10px;
       border-radius: 5px;
-      border: 1px solid #bbb;
+      border: 1px solid #aaa;
     }
 
-    #chatbox button {
+    #helpdesk button {
       padding: 10px 12px;
       margin-left: 8px;
       border: none;
@@ -119,13 +113,13 @@
     }
 
     footer {
-      margin-top: 40px;
-      font-size: 12px;
+      margin: 40px 0;
+      font-size: 13px;
       color: #999;
       text-align: center;
     }
 
-    @media screen and (max-width: 600px) {
+    @media (max-width: 600px) {
       nav {
         flex-direction: column;
         align-items: center;
@@ -133,13 +127,9 @@
       nav button {
         width: 90%;
       }
-      #chatbox input {
+      #helpdesk input, #helpdesk button {
         width: 100%;
-        margin-bottom: 10px;
-      }
-      #chatbox button {
-        width: 100%;
-        margin-left: 0;
+        margin: 5px 0;
       }
     }
   </style>
@@ -163,27 +153,27 @@
   <div class="container">
     <div class="card">
       <h2 id="welcome-msg">Welcome to Suriyawan Saffari!</h2>
-      <p>Shop from local sellers, track orders, and enjoy AI support 24x7.</p>
-      <p class="status" id="status-msg">Connecting to server...</p>
+      <p>Buy from trusted sellers, track your orders, and get real-time support.</p>
+      <p class="status" id="status-msg">Connecting to backend...</p>
       <p class="info">
-        Refer & Earn ₹10 after your friend’s 1st order is delivered.<br>
-        Limit: 10 referrals/day.
+        Refer & Earn ₹10 after your friend’s first delivery.<br />
+        Referral limit: 10 users/day.
       </p>
     </div>
 
-    <div id="chatbox" class="card">
-      <h3>🤖 Chat with AI Assistant – Suriyawan Saffari</h3>
-      <input type="text" id="chatInput" placeholder="Ask about your orders, products..." />
-      <button onclick="askAI()">Send</button>
+    <div id="helpdesk" class="card">
+      <h3>📞 Need Help? Ask the Help Desk</h3>
+      <input type="text" id="chatInput" placeholder="Ask about orders, products, etc..." />
+      <button onclick="askHelpDesk()">Send</button>
       <div id="chatResponse" class="info"></div>
     </div>
   </div>
 
   <footer>
-    © 2025 Suriyawan Saffari | Powered by AI + GPS + Referral System
+    © 2025 Suriyawan Saffari | Powered by Help Desk + Referral + GPS
   </footer>
 
-  <!-- Final JS Linked ✅ -->
+  <!-- JS File -->
   <script src="script.js"></script>
 </body>
 </html>
