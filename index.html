@@ -4,11 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Suriyawan Saffari – Customer Portal</title>
+
+  <!-- External Stylesheet -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Optional Google Fonts (Better UI) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Roboto', 'Segoe UI', sans-serif;
       background: #fdfdfd;
       color: #212529;
       display: flex;
@@ -151,6 +157,7 @@
     <button onclick="navigate('products')">🛒 Products</button>
     <button onclick="navigate('orders')">📦 My Orders</button>
     <button onclick="navigate('profile')">👤 Profile</button>
+    <button onclick="logoutCustomer()">🚪 Logout</button>
   </nav>
 
   <div class="container">
@@ -159,14 +166,15 @@
       <p>Shop from local sellers, track orders, and enjoy AI support 24x7.</p>
       <p class="status" id="status-msg">Connecting to server...</p>
       <p class="info">
-        Refer & Earn ₹10 after your friend’s 1st order is delivered. Limit: 10 referrals/day.
+        Refer & Earn ₹10 after your friend’s 1st order is delivered.<br>
+        Limit: 10 referrals/day.
       </p>
     </div>
 
     <div id="chatbox" class="card">
       <h3>🤖 Chat with AI Assistant – Suriyawan Saffari</h3>
-      <input type="text" id="userInput" placeholder="Ask about your orders, products..." />
-      <button onclick="sendMessage()">Send</button>
+      <input type="text" id="chatInput" placeholder="Ask about your orders, products..." />
+      <button onclick="askAI()">Send</button>
       <div id="chatResponse" class="info"></div>
     </div>
   </div>
@@ -175,6 +183,7 @@
     © 2025 Suriyawan Saffari | Powered by AI + GPS + Referral System
   </footer>
 
+  <!-- Final JS Linked ✅ -->
   <script src="script.js"></script>
 </body>
 </html>
