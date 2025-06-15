@@ -1,46 +1,175 @@
-// Customer Portal Script – D1 to D25
-
+// ✅ Customer Portal Script – D1 to D25
 const BASE_URL = "https://suriyawan-saffari-backend.onrender.com";
 
-// ✅ DOM Load document.addEventListener("DOMContentLoaded", () => { const welcome = document.getElementById("welcome-msg"); const status = document.getElementById("status-msg"); if (welcome) welcome.innerText = "🛒 Welcome to Suriyawan Saffari!"; if (status) status.innerText = "Connected to backend ✅";
+// ✅ D1: DOM Load
+document.addEventListener("DOMContentLoaded", () => {
+  setWelcome("🛒 Welcome to Suriyawan Saffari!");
+  setStatus("🔗 Connecting...");
 
-loadProducts();      // D2 loadCustomerData();  // D3 });
+  loadProducts();       // D2
+  loadCustomerInfo();   // D3
+  setupHelpDesk();      // D8–D11
+});
 
-// ✅ Load Products – D2 function loadProducts() { fetch(${BASE_URL}/api/customer/products) .then(res => res.json()) .then(data => { console.log("🧾 Products:", data); showProducts(data.products); }) .catch(err => { console.error("❌ Error loading products:", err); setStatus("Failed to load products ❌"); }); }
+// ✅ D2: Load Products
+function loadProducts() {
+  fetch(`${BASE_URL}/api/customer/products`)
+    .then(res => res.json())
+    .then(data => {
+      showProducts(data.products || []);
+      setStatus("✅ Products loaded");
+    })
+    .catch(() => setStatus("❌ Failed to load products"));
+}
 
-// ✅ Load Customer Info – D3 function loadCustomerData() { fetch(${BASE_URL}/api/customer/info, { credentials: "include" }) .then(res => res.json()) .then(data => { console.log("🙋‍♂️ Customer Info:", data); setWelcome(Hello, ${data.name || "Customer"} 👋); }) .catch(() => setWelcome("Welcome Guest!")); }
+// ✅ D3: Load Customer Info
+function loadCustomerInfo() {
+  fetch(`${BASE_URL}/api/customer/info`, {
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(data => {
+      setWelcome(`Hello, ${data.name || "Customer"} 👋`);
+    })
+    .catch(() => setWelcome("Welcome Guest!"));
+}
 
-// ✅ Show Products – D4 function showProducts(products = []) { const container = document.createElement("div"); container.className = "product-list";
+// ✅ D4: Show Products
+function showProducts(products = []) {
+  const container = document.createElement("div");
+  container.className = "product-list";
 
-products.forEach(product => { const card = document.createElement("div"); card.className = "card"; card.innerHTML = <h2>${product.name}</h2> <p>Price: ₹${product.price}</p> <button onclick="orderProduct('${product._id}')">Order Now</button>; container.appendChild(card); });
+  products.forEach(product => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <h2>${product.name}</h2>
+      <p>₹${product.price}</p>
+      <button onclick="orderProduct('${product._id}')">🛍 Order Now</button>
+    `;
+    container.appendChild(card);
+  });
 
-document.body.appendChild(container); }
+  document.body.appendChild(container);
+}
 
-// ✅ Order Product – D5 function orderProduct(productId) { const confirmOrder = confirm("Confirm order for this product?"); if (!confirmOrder) return;
+// ✅ D5: Order Product
+function orderProduct(productId) {
+  if (!confirm("Place order for this item?")) return;
 
-fetch(${BASE_URL}/api/customer/order, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ productId }), credentials: "include" }) .then(res => res.json()) .then(data => { alert("🧾 Order placed successfully! ID: " + data.orderId); }) .catch(() => alert("❌ Failed to place order")); }
+  fetch(`${BASE_URL}/api/customer/order`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ productId }),
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert("✅ Order placed! Order ID: " + data.orderId);
+    })
+    .catch(() => alert("❌ Failed to place order"));
+}
 
-// ✅ Set Welcome Text function setWelcome(text) { const el = document.getElementById("welcome-msg"); if (el) el.innerText = text; }
+// ✅ D6: Referral Info
+function showReferralInfo() {
+  alert("Refer & Earn ₹10 after your first delivery!");
+}
 
-// ✅ Set Status Text function setStatus(text) { const el = document.getElementById("status-msg"); if (el) el.innerText = text; }
+// ✅ D7: Track Order
+function trackOrder(orderId) {
+  fetch(`${BASE_URL}/api/customer/track/${orderId}`, {
+    credentials: "include"
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert(`📦 Status for Order #${orderId}: ${data.status}`);
+    })
+    .catch(() => alert("❌ Could not track order"));
+}
 
-// ✅ Referral Bonus Display – D6 function showReferralInfo() { alert("Refer & Earn ₹10! Share your code after your first delivery."); }
+// ✅ D8–D11: AI Help Chat (Renamed to Help Desk)
+function setupHelpDesk() {
+  const box = document.createElement("div");
+  box.id = "helpdesk";
+  box.style = "margin:20px;padding:10px;border:1px solid #ccc;border-radius:10px;width:90%;max-width:400px;";
+  box.innerHTML = `
+    <h3>📞 Suriyawan Saffari Help Desk</h3>
+    <input type="text" id="chatInput" placeholder="Ask a question..." style="width:70%;padding:5px;">
+    <button onclick="askHelpDesk()">Send</button>
+    <div id="chatResponse" style="margin-top:10px;color:#333;"></div>
+  `;
+  document.body.appendChild(box);
+}
 
-// ✅ Track Delivery – D7 function trackOrder(orderId) { fetch(${BASE_URL}/api/customer/track/${orderId}, { credentials: "include" }) .then(res => res.json()) .then(data => { alert(📦 Order Status: ${data.status}); }) .catch(() => alert("❌ Failed to track order")); }
+function askHelpDesk() {
+  const query = document.getElementById("chatInput").value;
+  if (!query) return;
 
-// ✅ Help Desk Chat – D8 to D11 document.addEventListener("DOMContentLoaded", () => { const chatContainer = document.createElement("div"); chatContainer.id = "chatbox"; chatContainer.innerHTML = <h3>💬 Help Desk</h3> <input type="text" id="chatInput" placeholder="Ask anything..."> <button onclick="askHelpDesk()">Send</button> <div id="chatResponse" style="margin-top:10px; color:#333;"></div>; document.body.appendChild(chatContainer); });
+  document.getElementById("chatResponse").innerText = "⏳ Typing...";
 
-function askHelpDesk() { const query = document.getElementById("chatInput").value; if (!query) return;
+  fetch(`${BASE_URL}/api/helpdesk/ask`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: query })
+  })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("chatResponse").innerText = "💬 " + data.reply;
+    })
+    .catch(() => {
+      document.getElementById("chatResponse").innerText = "❌ Failed to get response.";
+    });
+}
 
-fetch(${BASE_URL}/api/helpdesk/ask, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: query }), }) .then(res => res.json()) .then(data => { document.getElementById("chatResponse").innerText = "💬 " + data.reply; }) .catch(() => { document.getElementById("chatResponse").innerText = "❌ Help Desk not available."; }); }
+// ✅ D12: Logout
+function logoutCustomer() {
+  fetch(`${BASE_URL}/api/customer/logout`, {
+    method: "POST",
+    credentials: "include"
+  }).then(() => {
+    alert("🔒 Logged out successfully.");
+    location.reload();
+  });
+}
 
-// ✅ Logout – D12 function logoutCustomer() { fetch(${BASE_URL}/api/customer/logout, { method: "POST", credentials: "include" }).then(() => { alert("🔒 You have been logged out."); location.reload(); }); }
+// ✅ D13: Wishlist (Placeholder)
+function openWishlist() {
+  alert("📝 Wishlist coming soon!");
+}
 
-// ✅ Wishlist System – D13 function addToWishlist(productId) { fetch(${BASE_URL}/api/customer/wishlist, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ productId }), credentials: "include" }) .then(res => res.json()) .then(() => alert("💖 Added to wishlist!")) .catch(() => alert("❌ Failed to add to wishlist")); }
+// ✅ D14: Wallet (Placeholder)
+function openWallet() {
+  alert("💰 Wallet feature coming soon!");
+}
 
-// ✅ Wallet – D14 function checkWalletBalance() { fetch(${BASE_URL}/api/customer/wallet, { credentials: "include" }) .then(res => res.json()) .then(data => alert(💰 Wallet Balance: ₹${data.balance})) .catch(() => alert("❌ Wallet not accessible")); }
+// ✅ D15: Offers (Placeholder)
+function viewOffers() {
+  alert("🎁 No offers currently available.");
+}
 
-// ✅ Offers & Coupons – D15 function getAvailableOffers() { fetch(${BASE_URL}/api/customer/offers, { credentials: "include" }) .then(res => res.json()) .then(data => alert("🎁 Available Offers:\n" + data.offers.join("\n"))) .catch(() => alert("❌ No offers found")); }
+// ✅ D16: Feedback (Placeholder)
+function giveFeedback() {
+  const fb = prompt("📣 Share your feedback:");
+  if (fb) alert("✅ Thank you for your feedback!");
+}
 
-// ✅ Feedback – D16 function submitFeedback(message) { fetch(${BASE_URL}/api/customer/feedback, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message }), credentials: "include" }) .then(() => alert("✅ Feedback submitted. Thank you!")) .catch(() => alert("❌ Failed to submit feedback")); }
+// ✅ D17: Set Welcome Text
+function setWelcome(text) {
+  const el = document.getElementById("welcome-msg");
+  if (el) el.innerText = text;
+}
 
+// ✅ D18: Set Status
+function setStatus(text) {
+  const el = document.getElementById("status-msg");
+  if (el) el.innerText = text;
+}
+
+// ✅ D19–D25: Future Enhancements Placeholder
+// - Address book
+// - Order history
+// - Live support
+// - Cancel order
+// - Delivery instructions
+// - Complaint system
+// - Gift cards, etc.
