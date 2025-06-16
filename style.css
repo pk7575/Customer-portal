@@ -14,6 +14,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
 }
 
 /* Header */
@@ -58,9 +59,10 @@ nav button:hover {
 
 /* Main Content */
 .container {
-  width: 100%;
+  width: 95%;
   max-width: 850px;
   padding: 20px;
+  margin: auto;
 }
 
 /* Card UI Box */
@@ -73,9 +75,12 @@ nav button:hover {
 }
 
 /* Card Heading */
-.card h2 {
+.card h2,
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
   color: #333;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 /* Status Text */
@@ -137,6 +142,77 @@ footer {
   font-size: 13px;
   color: #999;
   text-align: center;
+}
+
+/* Universal Button */
+.btn {
+  background-color: #ff9800;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #e67e22;
+}
+
+/* Universal Input */
+.input-box {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  margin-bottom: 10px;
+}
+
+/* Text Align Utilities */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+/* Margin Utilities */
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+/* Padding Utilities */
+.p-10 {
+  padding: 10px;
+}
+.p-20 {
+  padding: 20px;
+}
+
+/* Flexbox Utilities */
+.flex {
+  display: flex;
+}
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Mobile Responsive */
